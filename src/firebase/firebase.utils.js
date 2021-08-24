@@ -12,6 +12,33 @@ const config = {
     measurementId: "G-PRFK71GY60"
 };
 
+export const createUserProfileDocument = async (userAuth, additionalData) => {
+    if (!userAuth) return;
+
+    const userRef = firestore.doc('users/Lre3GzSxUGmv8HDXjBsi')
+    const snapShot = await userRef.get();
+
+    if (!snapShot.exists) {
+        const {displayName, email} = userAuth;
+        const createdAt = new Date();
+
+        try {
+            await userRef.set({
+                displayName,
+                email,
+                createdAt,
+                ...additionalData
+            })
+        }catch(error) {
+            console.log('error creating user profile', error.message);
+        }
+    }
+
+    return userRef;
+
+
+};
+
 firebase.initializeApp(config);
 
 export const auth = firebase.auth();
