@@ -1,7 +1,6 @@
 import React from 'react';
 
-// import './custom-buttom.styles.scss'; Commit the component with out this 
-
+import './custom-button.styles.scss';
 const CustomButton = ({ children, ...otherProps }) => (
   <button className='custom-button' {...otherProps}>
     {children}
